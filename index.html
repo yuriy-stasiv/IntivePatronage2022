@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./src/pizza_icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Pizza</title>
+</head>
+
+<body>
+    <div class="spinner center">
+        <img src="./src/pizza_loader.png" class="pizza-part pizza-part-1" />
+        <img src="./src/pizza_loader.png" class="pizza-part pizza-part-2" />
+        <img src="./src/pizza_loader.png" class="pizza-part pizza-part-3" />
+        <img src="./src/pizza_loader.png" class="pizza-part pizza-part-4" />
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <img class="logo__img" src="./src/pizza logo.png" alt="logo">
+        </div>
+    </header>
+
+    <main class="page-content">
+
+        <section class="product-list">
+            <div class="product-list__items js-product-list__items">
+
+            </div>
+        </section>
+
+        <aside class="cart-list">
+            <div class="card-list__content">
+                <div class="cart-list__items">
+
+                    <div class="cart-list__title">
+                        <h2>Koszyk</h2>
+                    </div>
+
+                    <div class="cart-list__products js-cart-list__products">
+
+                    </div>
+
+                    <div class="card-list__empty js-card-list__empty">
+
+                        <div class="card-list__empty--img">
+                            <img src="https://cdn1.iconfinder.com/data/icons/premenstrual-syndrome-linear-outline/5000/Premenstrual_syndrome_icons_linear_editable_stroke_49-512.png"
+                                alt="hungry">
+                        </div>
+
+                        <div class="card-list__empty--text">
+                            Głodny? Zamów naszą pizzę
+                        </div>
+
+                    </div>
+
+                    <div class="card-list__checkout js-card-list__checkout">
+
+                        <div class="card-list__button">
+                            <button class="button button__main button__summary">Zamów
+                                <span class="card-list__total js-card-list__total">
+
+                                </span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
