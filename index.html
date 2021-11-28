@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="spinner center">
+    <div class="spinner center flex">
         <img src="./src/pizza_loader.png" class="pizza-part pizza-part-1" />
         <img src="./src/pizza_loader.png" class="pizza-part pizza-part-2" />
         <img src="./src/pizza_loader.png" class="pizza-part pizza-part-3" />
@@ -27,44 +27,44 @@
         </div>
     </header>
 
-    <main class="page-content">
+    <main class="hidden page-content ">
 
         <section class="product-list">
-            <div class="product-list__items js-product-list__items">
+            <div class="product-list__items">
 
             </div>
         </section>
 
         <aside class="cart-list">
-            <div class="card-list__content">
+            <div class="cart-list__content">
                 <div class="cart-list__items">
 
                     <div class="cart-list__title">
                         <h2>Koszyk</h2>
                     </div>
 
-                    <div class="cart-list__products js-cart-list__products">
+                    <div class="cart-list__products">
 
                     </div>
 
-                    <div class="card-list__empty js-card-list__empty">
+                    <div class="cart-list__empty">
 
-                        <div class="card-list__empty--img">
+                        <div class="cart-list__empty--img">
                             <img src="https://cdn1.iconfinder.com/data/icons/premenstrual-syndrome-linear-outline/5000/Premenstrual_syndrome_icons_linear_editable_stroke_49-512.png"
                                 alt="hungry">
                         </div>
 
-                        <div class="card-list__empty--text">
+                        <div class="cart-list__empty--text">
                             Głodny? Zamów naszą pizzę
                         </div>
 
                     </div>
 
-                    <div class="card-list__checkout js-card-list__checkout">
+                    <div class="cart-list__checkout hide">
 
-                        <div class="card-list__button">
+                        <div class="cart-list__button">
                             <button class="button button__main button__summary">Zamów
-                                <span class="card-list__total js-card-list__total">
+                                <span class="cart-list__total">
 
                                 </span>
                             </button>

@@ -1,38 +1,45 @@
 
 const url = 'https://raw.githubusercontent.com/alexsimkovich/patronage/main/api/data.json';
 
-const productList = document.querySelector('.js-product-list__items');
-const cartProducts = document.querySelector('.js-cart-list__products');
-const hungryInfo = document.querySelector('.js-card-list__empty');
-const checkout = document.querySelector('.js-card-list__checkout');
-const total = document.querySelector(".js-card-list__total");
+const productList = document.querySelector('.product-list__items');
+const cartProducts = document.querySelector('.cart-list__products');
+const hungryInfo = document.querySelector('.cart-list__empty');
+const checkout = document.querySelector('.cart-list__checkout');
+const total = document.querySelector('.cart-list__total');
+const main = document.querySelector('main');
+const spinner = document.querySelector('.spinner');
 
-let products;
+
+const products = [];
 let cart = [];
 
 fetch(url)
-    .then(responce => responce.json())
-    .then(data => products = data)
+    .then(response => response.json())
+    .then(data => data.forEach(item => products.push(item)))
     .then(() => renderPizza())
+
 
 function renderPizza() {
 
     products.forEach((productItem) => {
+
+        const { id, title, image, ingredients, price } = productItem
+
         productList.innerHTML += `
             <div class="product-item">
                 <div class="product-item__content">
 
                     <div class="product-item__image">
-                        <img src="${productItem.image}" alt="${productItem.title}">
+                        <img src="${image}" alt="${title}">
                     </div>
 
                     <div class="product-item__info">
 
                         <div class="product-item__title">
-                            <h3>${productItem.title}</h3>
+                            <h3>${title}</h3>
                         </div>
                         <div class="product-item__description">
-                            ${productItem.ingredients.join(', ')}
+                            ${ingredients.join(', ')}
                         </div>
                         
                     </div>
@@ -40,11 +47,11 @@ function renderPizza() {
                     <div class="product-item__checkout">
 
                         <div class="product-item__price-bar">
-                            <div>${productItem.price.toFixed(2)} zł</div>
+                            <div>${price.toFixed(2)} zł</div>
                         </div>
 
                         <div class="product-item__cart-bar">
-                            <button class="product-item__button button button__main" onclick="addToCart(${productItem.id})">Zamów</button>
+                            <button class="product-item__button button button__main" data-product-id="${id}">Zamów</button>
                         </div>
 
                     </div>
@@ -52,27 +59,57 @@ function renderPizza() {
                 </div>
             </div>
         `;
+
+        // handler for buttons to add products to cart
+        document.querySelectorAll('.product-item__button').forEach(item => {
+            item.addEventListener('click', () => {
+                const productId = parseInt(item.dataset.productId)
+                addToCart(productId)
+            })
+
+        })
+
     });
+
 }
 
-
 function addToCart(id) {
+
     if (cart.some(item => item.id === id)) {
-        quantityListener('increase', id)
+        cart = cart.map((item) => {
+            let itemsQuantity = item.itemsQuantity;
+            if (item.id === id) {
+                itemsQuantity++
+            }
+            return ({
+                ...item,
+                itemsQuantity,
+            });
+        })
     } else {
         const item = products.find(product => product.id === id)
-
         cart.push({
             ...item,
             itemsQuantity: 1,
         })
     }
-
     updateCart();
 }
 
-function removeItemFromCart(item) {
-    cart = cart.filter(product => product !== item)
+function removeItemFromCart(id) {
+    if (cart.some(item => item.id === id)) {
+        cart = cart.map((item) => {
+            let itemsQuantity = item.itemsQuantity;
+            if (item.id === id) {
+                itemsQuantity--
+            }
+            return {
+                ...item,
+                itemsQuantity,
+            };
+        })
+    }
+    updateCart();
 }
 
 function updateCart() {
@@ -84,6 +121,8 @@ function renderCartProducts() {
 
     cartProducts.innerHTML = "";
     cart.forEach((item) => {
+        const { id, title, price, itemsQuantity } = item;
+
         if (item.itemsQuantity >= 1) {
             cartProducts.innerHTML += `
             <div class="cart-item">
@@ -94,35 +133,44 @@ function renderCartProducts() {
                         <div class="cart-item__info--left">
 
                             <div class="cart-item__units">
-                                ${item.itemsQuantity}&nbsp;x&nbsp;
+                                ${itemsQuantity}&nbsp;x&nbsp;
                             </div>
 
                             <div class="cart-item__title" >
-                                <h4>${item.title}</h4>
+                                <h4>${title}</h4>
                             </div>
 
                         </div>
-                        
+
                         <div class="cart-item__info--right">
 
                             <div class="cart-item__delete">
-                                <button class="cart-item__button button button__delete" onclick="quantityListener('decrease', ${item.id} )">Usuń</button>
+                                <button class="cart-item__button button button__delete" data-cart-id="${id}">Usuń</button>
                             </div>
 
                             <div class="cart-item__unit-price">
-                                 ${item.price.toFixed(2)}&nbsp;zł
+                                 ${price.toFixed(2)}&nbsp;zł
                             </div>
 
                         </div>
-                        
+
                     </div>
 
                 </div>
             </div>
             `
+
         } else {
-            removeItemFromCart(item)
+            cart = cart.filter(product => product.id !== item.id)
         }
+
+        // handler for buttons to delete products from cart
+        document.querySelectorAll('.cart-item__button').forEach(item => {
+            item.addEventListener('click', () => {
+                const cartId = parseInt(item.dataset.cartId)
+                removeItemFromCart(cartId)
+            })
+        })
     })
 }
 
@@ -139,52 +187,28 @@ function renderTotal() {
     shoppingCartListener(totalItems);
 }
 
-function quantityListener(action, id) {
-    cart = cart.map((item) => {
-
-        let itemsQuantity = item.itemsQuantity;
-
-        if (item.id === id) {
-            switch (action) {
-                case "decrease":
-                    itemsQuantity--;
-                    break;
-                case "increase":
-                    itemsQuantity++;
-                    break;
-                default:
-                    alert('coś poszło nie tak')
-            }
-        }
-
-        return {
-            ...item,
-            itemsQuantity,
-        };
-
-    });
-
-    updateCart();
-}
 
 // if shoppingCart is empty - display hungry information
 function shoppingCartListener(items) {
     if (items > 0) {
-        hungryInfo.style.display = "none";
-        checkout.style.display = "block";
+        hungryInfo.classList.add('hide')
+        checkout.classList.remove('hide')
+
     } else {
-        hungryInfo.style.display = "block"
-        checkout.style.display = "none";
+        hungryInfo.classList.remove('hide')
+        checkout.classList.add('hide')
     }
 }
 
-document.onreadystatechange = function () {
-    if (document.readyState !== "complete") {
-        document.querySelector("body").style.visibility = "hidden";
-        document.querySelector(".spinner").style.visibility = "visible";
-    } else {
-        document.querySelector(".spinner").style.display = "none";
-        document.querySelector("body").style.visibility = "visible";
-    }
-};
+document.addEventListener('readystatechange', event => {
+    if (event.target.readyState === "interactive") {
+        main.classList.add('hidden')
+        spinner.classList.remove('hidden', 'hide')
+        spinner.classList.add('flex')
 
+    } else if (event.target.readyState === 'complete') {
+        spinner.classList.remove('flex')
+        spinner.classList.add('hidden', 'hide')
+        main.classList.remove('hidden')
+    }
+})
