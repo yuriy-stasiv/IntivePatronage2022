@@ -11,7 +11,7 @@ const spinner = document.querySelector('.spinner');
 
 
 const products = [];
-let cart = [];
+const cart = [];
 
 fetch(url)
     .then(response => response.json())
@@ -74,18 +74,10 @@ function renderPizza() {
 }
 
 function addToCart(id) {
+    const productInCart = cart.find(item => item.id === id)
 
-    if (cart.some(item => item.id === id)) {
-        cart = cart.map((item) => {
-            let itemsQuantity = item.itemsQuantity;
-            if (item.id === id) {
-                itemsQuantity++
-            }
-            return ({
-                ...item,
-                itemsQuantity,
-            });
-        })
+    if (productInCart) {
+        productInCart.itemsQuantity++
     } else {
         const item = products.find(product => product.id === id)
         cart.push({
@@ -93,22 +85,20 @@ function addToCart(id) {
             itemsQuantity: 1,
         })
     }
+
     updateCart();
 }
 
 function removeItemFromCart(id) {
-    if (cart.some(item => item.id === id)) {
-        cart = cart.map((item) => {
-            let itemsQuantity = item.itemsQuantity;
-            if (item.id === id) {
-                itemsQuantity--
-            }
-            return {
-                ...item,
-                itemsQuantity,
-            };
-        })
+    const productInCart = cart.find(item => item.id === id)
+    const index = cart.findIndex(item => item.id === id)
+
+    if (productInCart.itemsQuantity > 1) {
+        productInCart.itemsQuantity--
+    } else {
+        cart.splice(index, 1)
     }
+
     updateCart();
 }
 
@@ -159,9 +149,6 @@ function renderCartProducts() {
                 </div>
             </div>
             `
-
-        } else {
-            cart = cart.filter(product => product.id !== item.id)
         }
 
         // handler for buttons to delete products from cart
