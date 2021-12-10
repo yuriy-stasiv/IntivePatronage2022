@@ -1,0 +1,423 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f8f8;
+  font-size: 16px;
+
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hide {
+display: none;
+}
+
+.hidden {
+visibility: hidden;
+}
+
+.flex {
+display: flex;
+}
+
+.button {
+  display: inline-block;
+  position: relative;
+  border-radius: 3px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+
+.button__main {
+  height: 35px;
+  padding: 0 20px;
+  color: #fff;
+  background-color: #50a684;
+  font-size: 16px;
+}
+
+.button__main:hover {
+  background-color: #3f9170;
+  transition: 0.3s;
+}
+
+
+.button__delete {
+  height: 25px;
+  color: #fff;
+  padding: 0 10px;
+  background-color: #f44336;
+  font-size: 12px;
+}
+
+.button__delete:hover {
+  background-color: #df2f21;
+  transition: 0.3s;
+}
+
+.button__summary {
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  position: fixed;
+  z-index: 2000;
+  text-align: center;
+  box-shadow: 0 2px 24px 0 rgb(83 92 90 / 38%);
+}
+
+.logo {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+
+.page-content {
+  width: 1200px;
+  top: 80px;
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+}
+
+.product-list {
+  width: calc(100% - 344px);
+}
+
+.product-list__items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-item {
+  width: calc(33.3% - 10px);
+  margin: 5px;
+}
+
+.product-item__content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.product-item__image {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.product-item__info {
+  padding: 0 24px;
+  margin-bottom: 24px;
+}
+
+.product-item__title {
+  margin-bottom: 6px;
+}
+
+.product-item__description {
+  font-size: 14px;
+  color: grey;
+}
+
+.product-item__checkout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding: 12px 24px 24px;
+}
+
+.product-item__price-bar {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-item__cart-bar {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Cart List */
+.cart-list {
+  width: 344px;
+}
+
+.cart-list__content {
+  height: auto;
+  top: 80px;
+  bottom:0;
+  position: fixed;
+  padding-bottom: 100px;
+  border-radius: 10px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  background-color: #fff;
+}
+
+.cart-list__items {
+  width: 344px;
+}
+
+.cart-list__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65px;
+  border-bottom: 1px solid lightgrey;
+}
+
+.cart-list__products {
+  position: fixed;
+  top: 145px;
+  bottom: 63px;
+  width: inherit;
+  overflow: auto;
+}
+
+.cart-list__products::-webkit-scrollbar {
+  display: none;
+}
+
+.cart-item {
+  margin: 0 15px;
+}
+
+.cart-item__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0.5px solid lightgrey;
+}
+
+.cart-item__info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.cart-item__info--left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+  gap: 10px;
+}
+
+.cart-item__info--right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 50%;
+  gap: 15px;
+}
+
+.cart-item__button {
+  width: max-content;
+  float: right;
+}
+
+.cart-list__empty {
+  padding: 25px;
+}
+
+.cart-list__empty--text {
+  text-align: center;
+}
+
+.cart-list__checkout {
+  /* display: none; */
+  position: fixed;
+  bottom: 0;
+  width: 344px;
+  height: 65px;
+}
+
+
+.cart-list__button {
+  padding: 10px;
+}
+
+/* loader */
+.spinner {
+  width: 160px;
+  height: 160px;
+  margin: 0;
+  flex-wrap: wrap;
+  animation: spin 4s linear infinite;
+  visibility: visible;
+}
+
+.center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.pizza-part {
+  width: 80px;
+  height: 80px;
+}
+
+.pizza-part-1 {
+  animation: pizza1 2s ease-in-out infinite;
+}
+
+.pizza-part-2 {
+  animation: pizza2 2s ease-in-out infinite;
+}
+
+.pizza-part-3 {
+  animation: pizza4 2s ease-in-out infinite;
+}
+
+.pizza-part-4 {
+  animation: pizza3 2s ease-in-out infinite;
+}
+
+/* animations */
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes pizza1 {
+  0% {
+    transform: translate(-20%, -20%);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-20%, -20%);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-20%, -20%);
+    opacity: 0;
+  }
+}
+
+@keyframes pizza2 {
+  0% {
+    transform: translate(20%, -20%) rotateZ(90deg);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(20%, -20%) rotateZ(90deg);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(0%, 0%) rotateZ(90deg);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(0%, 0%) rotateZ(90deg);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(20%, -20%) rotateZ(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(20%, -20%) rotateZ(90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pizza3 {
+  0% {
+    transform: translate(20%, 20%) rotateZ(180deg);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(20%, 20%) rotateZ(180deg);
+    opacity: 0;
+  }
+  30% {
+    transform: translate(0%, 0%) rotateZ(180deg);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(0%, 0%) rotateZ(180deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(20%, 20%) rotateZ(180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(20%, 20%) rotateZ(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pizza4 {
+  0% {
+    transform: translate(-20%, 20%) rotateZ(-90deg);
+    opacity: 0;
+  }
+  30% {
+    transform: translate(-20%, 20%) rotateZ(-90deg);
+    opacity: 0;
+  }
+  40% {
+    transform: translate(0%, 0%) rotateZ(-90deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(0%, 0%) rotateZ(-90deg);
+    opacity: 1;
+  }
+  90% {
+    transform: translate(-20%, 20%) rotateZ(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-20%, 20%) rotateZ(-90deg);
+    opacity: 0;
+  }
+}
