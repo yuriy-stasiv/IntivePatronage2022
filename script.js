@@ -29,10 +29,13 @@ updateCart();
 fetch(url)
     .then(response => response.json())
     .then(data => data.forEach(item => products.push(item)))
-    .then(() => updatePizza(products))
+    .then(() => renderPizza(products))
 
 
 function renderPizza(products) {
+
+    sortPizza(products);
+
     let result = '';
     products.forEach(({ id, title, image, ingredients, price }) => {
 
@@ -86,51 +89,43 @@ function renderPizza(products) {
 
 }
 
-
-function updatePizza(products) {
-
-    // sort products by selecting sorting option
-    sortProducts.addEventListener('change', () => {
-        const sortOption = sortProducts.value;
-        switch (sortOption) {
-            case 'nameAscending':
-                products.sort((a, b) => sortAtoZ(a, b));
-                break;
-            case 'nameDescending':
-                products.sort((a, b) => sortZtoA(a, b));
-                break;
-            case 'priceAscending':
-                products.sort((a, b) => priceAscending(a, b));
-                break;
-            case 'priceDescending':
-                products.sort((a, b) => priceDescending(a, b));
-                break;
-            default:
-                break;
-        }
-        renderPizza(products)
-    })
-
-    sortByDefault(products)
-    renderPizza(products)
+function sortPizza(products) {
+    const sortOption = sortProducts.value;
+    switch (sortOption) {
+        case 'nameAscending':
+            products.sort((a, b) => sortAtoZ(a, b));
+            break;
+        case 'nameDescending':
+            products.sort((a, b) => sortZtoA(a, b));
+            break;
+        case 'priceAscending':
+            products.sort((a, b) => priceAscending(a, b));
+            break;
+        case 'priceDescending':
+            products.sort((a, b) => priceDescending(a, b));
+            break;
+        default:
+            break;
+    }
+    return products;
 }
 
+
 // filter products by providing ingredients to search bar
-filterProducts.addEventListener('input', () => {
+filterProducts.addEventListener('input', () => filterPizza())
+// sort products by selecting sorting option and considering products filtration 
+sortProducts.addEventListener('change', () => filterPizza())
+
+
+function filterPizza() {
     const filterIngredients = filterProducts.value.toUpperCase().replace(/\s/g, '').split(',')
     const filteredProducts = products.filter(product =>
         filterIngredients.every(searchProduct => product.ingredients.some(ingredient => ingredient.toUpperCase().includes(searchProduct)))
     )
-    updatePizza(filteredProducts)
-
-})
-
-// sort functions
-function sortByDefault(products) {
-    products.sort((a, b) => sortAtoZ(a, b));
-    sortProducts.value = 'nameAscending'
+    renderPizza(filteredProducts)
 }
 
+// sort functions
 function sortAtoZ(a, b) {
     return a.title.localeCompare(b.title)
 }
