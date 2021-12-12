@@ -30,17 +30,54 @@
     <main class="hidden page-content ">
 
         <section class="product-list">
+
+            <div class="product-list__sieve">
+
+                <div class="product-list__filter">
+                    <input type="text" class="product-list__filter--input" placeholder="szukaj wedłud składników">
+                </div>
+
+                <div class="product-list__sort">
+                    <div class="product-list__sort--title">Sortuj według</div>
+                    <select name="sort" id="product-list__sort--select">
+                        <option value="nameAscending">Nazwa rosnąco (A-Z)</option>
+                        <option value="nameDescending">Nazwa malejąco (Z-A)</option>
+                        <option value="priceAscending">Cena rosnąco</option>
+                        <option value="priceDescending">Cena malejąco</option>
+                    </select>
+                </div>
+
+            </div>
+
             <div class="product-list__items">
 
             </div>
+
+            <div id="shopping-cart" class="shopping-cart">
+                <div class="shopping-cart__icon">
+                    <img src="./src/shopping-cart.png" alt="shopping-cart">
+                </div>
+                <div class="shopping-cart__price">
+                </div>
+            </div>
+
         </section>
 
         <aside class="cart-list">
             <div class="cart-list__content">
+
                 <div class="cart-list__items">
+
+                    <div class="cart-list__go-back">
+                        <img src="./src/left-arrow.png" alt="left-arrow">
+                    </div>
 
                     <div class="cart-list__title">
                         <h2>Koszyk</h2>
+                    </div>
+
+                    <div class="cart-list__remove-items">
+                        <img src="./src/trash.png" alt="trash">
                     </div>
 
                     <div class="cart-list__products">
