@@ -35,57 +35,67 @@ fetch(url)
 function renderPizza(products) {
 
     sortPizza(products);
-
     let result = '';
-    products.forEach(({ id, title, image, ingredients, price }) => {
 
-        result += `
-            <div class="product-item">
-                <div class="product-item__content">
+    if (products.length) {
+        products.forEach(({ id, title, image, ingredients, price }) => {
 
-                    <div class="product-item__image">
-                        <img src="${image}" alt="${title}">
+            result += `
+                <div class="product-item">
+                    <div class="product-item__content">
+    
+                        <div class="product-item__image">
+                            <img src="${image}" alt="${title}">
+                        </div>
+    
+                        <div class="product-item__info">
+    
+                            <div class="product-item__title">
+                                <h3 class="product-item__title-text">${title}</h3>
+                            </div>
+                            <div class="product-item__description">
+                                ${ingredients.join(', ')}
+                            </div>
+                            
+                        </div>
+    
+                        <div class="product-item__checkout">
+    
+                            <div class="product-item__price-bar">
+                                <div>${price.toFixed(2)} zł</div>
+                            </div>
+    
+                            <div class="product-item__cart-bar">
+                                <button class="product-item__button button button__main" data-product-id="${id}">Zamów</button>
+                            </div>
+    
+                        </div>
+    
                     </div>
-
-                    <div class="product-item__info">
-
-                        <div class="product-item__title">
-                            <h3 class="product-item__title-text">${title}</h3>
-                        </div>
-                        <div class="product-item__description">
-                            ${ingredients.join(', ')}
-                        </div>
-                        
-                    </div>
-
-                    <div class="product-item__checkout">
-
-                        <div class="product-item__price-bar">
-                            <div>${price.toFixed(2)} zł</div>
-                        </div>
-
-                        <div class="product-item__cart-bar">
-                            <button class="product-item__button button button__main" data-product-id="${id}">Zamów</button>
-                        </div>
-
-                    </div>
-
                 </div>
-            </div>
-        `;
+            `;
 
-        productListItems.innerHTML = result;
+            productListItems.innerHTML = result;
 
-        // handler for buttons to add products to cart
-        document.querySelectorAll('.product-item__button').forEach(item => {
-            item.addEventListener('click', () => {
-                const productId = parseInt(item.dataset.productId)
-                addToCart(productId)
+            // handler for buttons to add products to cart
+            document.querySelectorAll('.product-item__button').forEach(item => {
+                item.addEventListener('click', () => {
+                    const productId = parseInt(item.dataset.productId)
+                    addToCart(productId)
+                })
+
             })
 
-        })
-
-    });
+        });
+        
+    } else {
+        result += `
+            <div class="product-list__not-found">
+                brak wyników wyszukiwania dla: ${filterProducts.value}
+            </div>
+        `;
+        productListItems.innerHTML = result;
+    }
 
 }
 

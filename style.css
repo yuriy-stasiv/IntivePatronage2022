@@ -152,6 +152,10 @@ img {
   margin: 0 10px;
 }
 
+.product-list__not-found {
+  margin: 30px;
+}
+
 .product-list__sieve {
   display: flex;
   flex-direction: column;
