@@ -28,7 +28,7 @@ updateCart();
 
 fetch(url)
     .then(response => response.json())
-    .then(data => data.forEach(item => products.push(item)))
+    .then(data => Array.prototype.push.apply(products, data))
     .then(() => renderPizza(products))
 
 
@@ -115,6 +115,7 @@ function sortPizza(products) {
             products.sort((a, b) => priceDescending(a, b));
             break;
         default:
+            products.sort((a, b) => sortAtoZ(a, b));
             break;
     }
     return products;
